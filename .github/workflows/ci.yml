@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  testes:
+    name: testes (${{ matrix.so }}, node ${{ matrix.node }})
+    runs-on: ${{ matrix.so }}
+    strategy:
+      fail-fast: false
+      matrix:
+        so: [ubuntu-latest, windows-latest, macos-latest]
+        node: ['20', '22', '24']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      # O `shell: bash` nao e enfeite: no PowerShell do runner o glob chega ao
+      # node como texto literal.
+      - name: "as regras e os numeros do README"
+        shell: bash
+        run: node --test testes/nucleo.test.js testes/medidas.test.js
+      - name: "a largura 8, a precisao e o juiz no 8x8 inteiro"
+        shell: bash
+        run: node --test testes/pesados.test.js
+
+  medidas:
+    name: tabelas do README
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: "os tabuleiros quadrados"
+        run: node ferramentas/medidor.js quadrados
+      - name: "larguras 4, 6 e 8 em varias alturas"
+        run: node ferramentas/medidor.js retangulos
+      - name: "a precisao que a vitoria das ovelhas pede"
+        run: node ferramentas/medidor.js precisao
+      - name: "o juiz contra o nucleo e o controle negativo"
+        run: node ferramentas/medidor.js juiz
+      - name: "o 10x10, uma vez so"
+        run: node --test testes/dez.test.js
