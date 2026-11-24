@@ -1,0 +1,15 @@
+{
+  "name": "lobo-e-ovelhas",
+  "version": "1.0.0",
+  "description": "O Lobo e as Ovelhas resolvido: no 8x8 e no 10x10 as ovelhas ganham de qualquer casa, mas com seis colunas o vencedor vira com a paridade da altura",
+  "type": "module",
+  "private": false,
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test testes/*.test.js",
+    "medir": "node ferramentas/medidor.js"
+  }
+}
