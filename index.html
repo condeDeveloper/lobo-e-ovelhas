@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lobo e Ovelhas — quem ganha cada tabuleiro</title>
+<meta name="description" content="O Lobo e as Ovelhas resolvido: no 8x8 e no 10x10 as ovelhas ganham de qualquer casa, mas no tabuleiro de 6 colunas o vencedor vira com a paridade da altura.">
+<link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+
+<header>
+  <h1>Lobo e Ovelhas</h1>
+  <p>Um lobo contra quatro ovelhas, nas casas escuras de um tabuleiro de damas. As ovelhas só andam para a frente, uma casa na diagonal. O lobo anda uma casa na diagonal para qualquer lado. Ninguém come ninguém: o lobo ganha se chegar à linha de onde as ovelhas saíram, e as ovelhas ganham se cercarem o lobo.</p>
+</header>
+
+<main>
+
+<section>
+  <h2>Jogue contra a máquina</h2>
+  <div class="painel">
+    <div class="linha" style="margin-bottom:16px">
+      <select id="tamanho" aria-label="tamanho do tabuleiro">
+        <option value="8x8" selected>8 × 8, 4 ovelhas</option>
+        <option value="6x6">6 × 6, 3 ovelhas</option>
+        <option value="6x7">6 × 7, 3 ovelhas</option>
+        <option value="4x4">4 × 4, 2 ovelhas</option>
+      </select>
+      <select id="lado" aria-label="seu lado">
+        <option value="ovelhas" selected>Eu jogo com as ovelhas</option>
+        <option value="lobo">Eu jogo com o lobo</option>
+      </select>
+      <select id="comeca" aria-label="quem começa">
+        <option value="0" selected>O lobo começa</option>
+        <option value="1">As ovelhas começam</option>
+      </select>
+      <button id="voltar" type="button">Voltar</button>
+      <button id="reiniciar" type="button">Reiniciar</button>
+    </div>
+    <p class="fraco">Clique numa peça sua e depois na casa para onde ela vai. O lobo da máquina começa na casa que for melhor para ele.</p>
+    <div id="tabuleiro"></div>
+    <p id="estado"></p>
+  </div>
+</section>
+
+<section>
+  <h2>O que a varredura respondeu</h2>
+
+  <h3>No 8 × 8 as ovelhas ganham, de qualquer jeito</h3>
+  <p>De qualquer uma das quatro casas de partida do lobo, comece quem começar, as ovelhas ganham. Com o lobo começando a partida perfeita dura 44 meio-lances; com as ovelhas começando, 43. O mesmo vale no 10 × 10, que pediu 165 milhões de posições: 72 e 71 meio-lances.</p>
+
+  <h3>Mas no tabuleiro de seis colunas, o vencedor vira com a paridade</h3>
+  <p>Com seis colunas e três ovelhas, a partir da altura 6, quem ganha depende de duas coisas: se a altura é par ou ímpar, e quem começa. No <strong>6 × 6 ganha quem começa</strong>. No <strong>6 × 7 ganha quem não começa</strong>. E segue alternando até a altura 12, a última medida. Nas larguras 4 e 8 isso nunca acontece: as ovelhas ganham sempre, e a partida perfeita cresce exatamente uma largura de meio-lances a cada linha a mais (4 por linha na largura 4, 8 por linha na largura 8).</p>
+
+  <h3>A vitória das ovelhas pede precisão</h3>
+  <p>No 8 × 8, nas 76.390 posições em que as ovelhas estão na vez e ganhando, <strong>54,69% das jogadas jogam a vitória fora</strong>, e em 34,35% dessas posições só uma jogada mantém a vitória. Experimente jogar com as ovelhas: a máquina não perdoa.</p>
+</section>
+
+<section>
+  <h2>Como rodar</h2>
+  <p>Precisa de Node 20 ou mais novo. Sem dependência nenhuma.</p>
+  <pre><code>npm test          # a suíte inteira, com o 10 × 10 (uns minutos)
+npm run medir     # as tabelas rápidas</code></pre>
+  <p>O código está em <a href="https://github.com/condeDeveloper/lobo-e-ovelhas">github.com/condeDeveloper/lobo-e-ovelhas</a>.</p>
+</section>
+
+</main>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
